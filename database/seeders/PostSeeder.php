@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Database\Seeders\Traits\TruncateTable;
-use App\Models\Post;
 
 class PostSeeder extends Seeder
 {
@@ -16,6 +15,9 @@ class PostSeeder extends Seeder
     public function run(): void
     {
         $this->truncate('posts');
-        Post::factory(10)->untitled()->create();
+        \App\Models\Post::factory(10)->untitled()->create()
+            ->each(function($post) {
+                $post->users()->sync([\Database\Factories\Helpers\FactoryHelper::getRandomModelId(\App\Models\User::class)]);
+            });
     }
 }
