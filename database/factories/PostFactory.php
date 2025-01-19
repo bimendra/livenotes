@@ -17,7 +17,15 @@ class PostFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'title' => fake()->name,
+            'body'  => [],
         ];
+    }
+
+    public function untitled()
+    {
+        return $this->state([
+            'title' => 'Untitled'
+        ]);
     }
 }
