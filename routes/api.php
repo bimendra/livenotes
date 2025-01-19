@@ -21,8 +21,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::namespace('\App\Http\Controllers')
     ->middleware('auth:sanctum')
     ->prefix('v1')
-    ->group(function() {
-        require __DIR__ . '/api/v1/users.php';
-        require __DIR__ . '/api/v1/posts.php';
-        require __DIR__ . '/api/v1/comments.php';
+    ->group(function() {        
+        \App\Helpers\Routes\RouteHelper::includeRouteFiles(__DIR__ . '/api/v1');
     });
