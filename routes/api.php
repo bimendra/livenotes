@@ -19,7 +19,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::namespace('\App\Http\Controllers')
-    ->middleware('auth:sanctum')
+    // ->middleware('auth:sanctum')
     ->prefix('v1')
     ->group(function() {        
         \App\Helpers\Routes\RouteHelper::includeRouteFiles(__DIR__ . '/api/v1');
