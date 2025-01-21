@@ -1,0 +1,2 @@
+GET 
+http://livenotes.local/api/v1/posts/

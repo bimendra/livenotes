@@ -7,6 +7,7 @@ use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
+use App\Http\Resources\PostResource;
 
 class PostController extends Controller
 {
@@ -15,9 +16,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return new JsonResponse([
-            'data' => Post::query()->get(),
-        ]);
+        return PostResource::collection(Post::query()->get());
     }
 
     /**
@@ -34,9 +33,7 @@ class PostController extends Controller
             return $created;
         });
 
-        return new JsonResponse([
-            'data' => $created
-        ]);
+        return new PostResource($created);
     }
 
     /**
@@ -44,9 +41,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return new JsonResponse([
-            'data' => $post
-        ]);
+        return new PostResource($post);
     }
 
     /**
@@ -71,9 +66,7 @@ class PostController extends Controller
                 ],
             ], 400);
         }
-        return new JsonResponse([
-            'data' => $post,
-        ]);
+        return new PostResource($post);
     }
 
     /**
