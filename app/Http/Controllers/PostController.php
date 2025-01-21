@@ -8,15 +8,16 @@ use App\Http\Requests\UpdatePostRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use App\Http\Resources\PostResource;
+use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return PostResource::collection(Post::query()->get());
+        return PostResource::collection(Post::query()->paginate($request->page_size ?? 10));
     }
 
     /**
