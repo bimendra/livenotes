@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Events\Models\User\UserCreated;
 use App\Exceptions\GeneralJsonException;
 use App\Repositories\BaseRepository;
 use App\Models\User;
@@ -18,6 +19,7 @@ class UserRepository extends BaseRepository
         'password' => data_get($attributes, 'password'),
       ]);
       throw_if(!$created, GeneralJsonException::class, 'Failed to create model.');
+      event(new UserCreated($created));
       return $created;
     });
   }
