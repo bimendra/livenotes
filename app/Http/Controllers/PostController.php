@@ -10,6 +10,11 @@ use App\Http\Resources\PostResource;
 use Illuminate\Http\Request;
 use App\Repositories\PostRepository;
 
+/**
+ * @group Posts
+ * 
+ * API to manage users resource.
+ */
 class PostController extends Controller
 {
     /**

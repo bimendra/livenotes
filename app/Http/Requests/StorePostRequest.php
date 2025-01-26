@@ -34,7 +34,7 @@ class StorePostRequest extends FormRequest
         return [
             'title.required' => 'Title is required',
             'title.string' => 'Title should be a string',
-            'body.required' => 'Please enter a value for body'
+            'body.required' => 'Please enter a value for body'  
         ];
     }
 }
