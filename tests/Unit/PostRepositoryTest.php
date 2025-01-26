@@ -7,9 +7,11 @@ use App\Http\Resources\PostResource;
 use App\Repositories\PostRepository;
 use Tests\TestCase;
 use App\Models\Post;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class PostRepositoryTest extends TestCase
 {
+    use RefreshDatabase;
     /**
      * A basic unit test example.
      */
