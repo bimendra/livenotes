@@ -25,7 +25,7 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request, PostRepository $repository)
     {
-        return new PostResource($repository->create($request->only(['id', 'body', 'user_ids'])));
+        return new PostResource($repository->create($request->only(['title', 'body', 'user_ids'])));
     }
 
     /**
