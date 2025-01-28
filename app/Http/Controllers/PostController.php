@@ -7,8 +7,11 @@ use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use Illuminate\Http\JsonResponse;
 use App\Http\Resources\PostResource;
+use App\Models\User;
+use App\Notifications\PostSharedNotification;
 use Illuminate\Http\Request;
 use App\Repositories\PostRepository;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\URL;
 
 /**
@@ -80,11 +83,15 @@ class PostController extends Controller
     /**
      * Share a specified post with an expiring URL
      */
-    public function share(Post $post)
+    public function share(Request $request, Post $post)
     {
         $url = URL::temporarySignedRoute('shared.post', now()->addDays(30), [
             'post' => $post->id,
         ]);
+        
+        $users = User::query()->whereIn('id', $request->user_ids)->get();        
+        
+        Notification::send($users, new PostSharedNotification($post, $url));
 
         return new JsonResponse([
             'data' => $url,
