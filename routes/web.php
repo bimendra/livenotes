@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Post;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,3 +23,9 @@ Route::get('/reset-password/{token}', function($token) {
     return $token;
 })->middleware(['guest:'.config('fortify.guard')])
     ->name('password.reset');
+
+Route::get('/shared/posts{post}', function(Post $post) {
+    return new JsonResponse([
+        'data' => $post,
+    ]);
+})->name('shared.post')->middleware('signed');

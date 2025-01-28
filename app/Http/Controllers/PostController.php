@@ -9,6 +9,7 @@ use Illuminate\Http\JsonResponse;
 use App\Http\Resources\PostResource;
 use Illuminate\Http\Request;
 use App\Repositories\PostRepository;
+use Illuminate\Support\Facades\URL;
 
 /**
  * @group Posts
@@ -74,5 +75,19 @@ class PostController extends Controller
                 'data' => 'Successfully deleted the post',
             ]);
         }
+    }
+
+    /**
+     * Share a specified post with an expiring URL
+     */
+    public function share(Post $post)
+    {
+        $url = URL::temporarySignedRoute('shared.post', now()->addDays(30), [
+            'post' => $post->id,
+        ]);
+
+        return new JsonResponse([
+            'data' => $url,
+        ]);
     }
 }
