@@ -24,17 +24,18 @@ class StorePostRequest extends FormRequest
     {
         return [
             'title' => ['string', 'required'],
-            'body' => ['array', 'required'],
-            'user_ids' => ['array', 'required', new IntegerArray],
+            'body' => ['array'],
+            'user_ids' => ['array', new IntegerArray],
         ];
     }
 
     public function messages()
     {
         return [
-            'title.required' => 'Title is required',
-            'title.string' => 'Title should be a string',
-            'body.required' => 'Please enter a value for body'  
+            'title.required' => 'title is required',
+            'title.string' => 'title should be a string',
+            'body.array' => 'body should be an array',
+            'user_ids.array' => 'user_ids should be an array'
         ];
     }
 }
